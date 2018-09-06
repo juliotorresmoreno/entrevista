@@ -17,7 +17,7 @@
             "header": {
                 "typ": "access"
             },
-            "audience": "https://yourdomain.com",
+            "audience": "http://onnasoft.com:3000",
             "subject": "anonymous",
             "issuer": "feathers",
             "algorithm": "HS256",
@@ -25,8 +25,7 @@
         },
         "github": {
             "clientID": "e1dc0c73d7ce72b0d624",
-            "clientSecret": "144ab50ea56f428300292ec390207c369a2eee8d",
-            "successRedirect": "/"
+            "clientSecret": "144ab50ea56f428300292ec390207c369a2eee8d"
         },
         "cookie": {
             "enabled": true,
