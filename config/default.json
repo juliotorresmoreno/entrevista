@@ -1,0 +1,39 @@
+{
+    "host": "localhost",
+    "port": 3030,
+    "public": "../public/",
+    "paginate": {
+        "default": 10,
+        "max": 50
+    },
+    "authentication": {
+        "secret": "d300f376deef41be9382ad43bfab5cc76414a8206b682bf74e3ea5254075591673ed22f23e1f33adf567c14f26eaf7467f864471c219a66d79fd9122798e978dd7f886d0502709345cd7c0157d98bacdb56a61d88f38650982cb8333cf2e9c752973c6d85c4f68ddff20871f640616d3271bfae53fed155f03afebdae5a8df28187c4edb2467c8dc22aefb66e62a4c90c6a8f8674e77ad8b0812b3f9dc3e7df4489a66b65ca9aa76d6c8951e4acaa9b87311baf2d40fbf4a063dd323ae35b14de7d5ab28e2e04fd931783aa7c90d4ad3202c35c4eae3acb990f51ed5fff1b8ad7c1074cb13356715890b278c89e48418267cd78d47d971724e1201f1520b856a",
+        "strategies": [
+            "jwt"
+        ],
+        "path": "/authentication",
+        "service": "users",
+        "jwt": {
+            "header": {
+                "typ": "access"
+            },
+            "audience": "https://yourdomain.com",
+            "subject": "anonymous",
+            "issuer": "feathers",
+            "algorithm": "HS256",
+            "expiresIn": "1d"
+        },
+        "github": {
+            "clientID": "e1dc0c73d7ce72b0d624",
+            "clientSecret": "144ab50ea56f428300292ec390207c369a2eee8d",
+            "successRedirect": "/"
+        },
+        "cookie": {
+            "enabled": true,
+            "name": "feathers-jwt",
+            "httpOnly": false,
+            "secure": false
+        }
+    },
+    "mongodb": "mongodb://localhost:27017/entrevista"
+}
