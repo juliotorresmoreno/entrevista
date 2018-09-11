@@ -3,14 +3,20 @@
 <head>
     <title>Welcome to Feathers</title>
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <style>
+        .marginbottom5 {
+            margin-bottom: 5px
+        }
+    </style>
 </head>
 
 <body ng-app="app">
     <br />
     <div class="container-fluid" ng-controller="formCtrl">
+        {{getCookie()}}
         <div class="grid">
             <div class="row">
-                <div class="cell-3">
+                <div class="cell-2">
 
                     <div class="panel" data-role="panel" data-title-caption="Panel title">
                         <form>
@@ -18,7 +24,7 @@
                                 <h3>Busqueda</h3>
                                 <div class="form-group">
                                     <label>Nombre de usuario</label><br />
-                                    <input type="text" placeholder="Username" ng-model="username" />
+                                    <input type="text" ng-model="username" />
                                 </div>
                                 <div class="form-group">
                                     <div data-role="panel" data-width="280" data-height="150">
@@ -54,82 +60,243 @@
                         </div>
                     </div>
                 </div>
-                <div class="cell-6">
+                <div class="cell-5">
+                    <div class="panel container">
+                        <form action="">
+                            <h3>Basico</h3>
+                            <div class="row marginbottom5">
+                                <div class="cell-4">
+                                    <span style="font-weight: bold">Documento</span>:
+                                </div>
+                                <div class="cell-8">
+                                    <input type="text" ng-model="user.documento" style="width:100%" />
+                                    <div ng-if="errors.documento" style="color: red">
+                                        {{errors.documento}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row marginbottom5">
+                                <div class="cell-4">
+                                    <span style="font-weight: bold">Nombres</span>:
+                                </div>
+                                <div class="cell-8">
+                                    <input type="text" ng-model="user.nombres" style="width:100%" />
+                                    <div ng-if="errors.nombres" style="color: red">
+                                        {{errors.nombres}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row marginbottom5">
+                                <div class="cell-4">
+                                    <span style="font-weight: bold">Apellidos</span>:
+                                </div>
+                                <div class="cell-8">
+                                    <input type="text" ng-model="user.apellidos" style="width:100%" />
+                                    <div ng-if="errors.apellidos" style="color: red">
+                                        {{errors.apellidos}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row marginbottom5">
+                                <div class="cell-4">
+                                    <span style="font-weight: bold">Fecha de nacimiento</span>:
+                                </div>
+                                <div class="cell-8">
+                                    <input type="text" ng-model="user.fecha_nacimiento" style="width:100%" />
+                                    <div ng-if="errors.fecha_nacimiento" style="color: red">
+                                        {{errors.fecha_nacimiento}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row marginbottom5">
+                                <div class="cell-4">
+                                    <span style="font-weight: bold">Login</span>:
+                                </div>
+                                <div class="cell-8">
+                                    <input type="text" ng-model="user.login" style="width:100%" />
+                                </div>
+                            </div>
+                            <button style="float:right" type="button" class="button info" ng-click="registrar()">
+                                Registrar
+                            </button>
+                            <br />
+                            <br />
+                        </form>
+                    </div>
+                    <br />
                     <div class="panel container">
                         <h3>General</h3>
-                        <img style="float: right; max-width: 150px" ng-src="{{user.avatar_url}}" />
-                        <div><span style="font-weight: bold">ID</span>:
-                            {{user.id}}
+                        <div style="height: 150px">
+                            <img style="max-width: 150px" ng-src="{{user.avatar_url}}" />
                         </div>
-                        <div><span style="font-weight: bold">Login</span>:
-                            {{user.login}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">ID</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.id" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Node ID</span>:
-                            {{user.node_id}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Node ID</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.node_id" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Avatar URL</span>:
-
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Avatar URL</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.avatar_url" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Gravatar ID</span>:
-                            {{user.gravatar_id}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Gravatar ID</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.gravatar_id" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">URL</span>:
-                            <a ng-href='{{user.url}}'>{{user.url}}</a>
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">URL</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.url" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">HTML URL</span>:
-                            <a ng-href='{{user.html_url}}'>{{user.html_url}}</a>
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">HTML URL</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.html_url" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Nombre</span>:
-                            {{user.name}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Nombre completo</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.name" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Company</span>:
-                            {{user.company}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Company</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.company" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Blog</span>:
-                            {{user.blog}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Blog</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.blog" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Ubicación</span>:
-                            {{user.location}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Ubicación</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.location" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Email</span>:
-                            {{user.email}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Email</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="user.email" style="width:100%" />
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Public repos</span>:
-                            {{user.public_repos}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Public repos</span>:
+                            </div>
+                            <div class="cell-8">
+                                {{user.public_repos}}
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Public gists</span>:
-                            {{user.public_gists}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Public gists</span>:
+                            </div>
+                            <div class="cell-8">
+                                {{user.public_gists}}
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Followers</span>:
-                            {{user.followers}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Followers</span>:
+                            </div>
+                            <div class="cell-8">
+                                {{user.followers}}
+                            </div>
                         </div>
-                        <div><span style="font-weight: bold">Following</span>:
-                            {{user.following}}
+                        <div class="row marginbottom5">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Following</span>:
+                            </div>
+                            <div class="cell-8">
+                                {{user.following}}
+                            </div>
                         </div>
                     </div>
                     <br />
-
-                    <div class="panel container">
-                        <h3>Eventos</h3>
-                        <div ng-repeat="x in events">
-                            <div>
-                                <img style="width: 40px" ng-src="{{x.actor.avatar_url}}" />
-                                <a href="{{x.actor.url}}">{{x.actor.login}}</a>
-                                {{x.type}}
-                                <a href="{{x.repo.url}}">
-                                    {{x.repo.name}}
-                                </a>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
                 </div>
-                <div class="cell-3">
-                    <div class="panel container">
+                <div class="cell-5">
+                    <div class="panel container" style="padding-bottom: 10px">
                         <h3>Repositorios</h3>
-                        <div ng-repeat="x in repos">
+                        <!--<div ng-repeat="x in repos">
                             <a ng-href='{{x.html_url}}'>{{x.name}}</a>
                             ({{x.language}}) {{x.fork?'Fork':''}}
+                        </div>-->
+                        <div class="row">
+                            <div class="cell-4">
+                                <span style="font-weight: bold">Buscar</span>:
+                            </div>
+                            <div class="cell-8">
+                                <input type="text" ng-model="search_repo" ng-change="buscar_repos()" style="width:100%" />
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th ng-click="order('repos', 'language')">Lenguaje</th>
+                                    <th ng-click="order('repos', 'default_branch')">Rama</th>
+                                    <th ng-click="order('repos', 'html_url')">Url</th>
+                                    <th ng-click="order('repos', 'name')">Nombre</th>
+                                    <th ng-click="order('repos', 'description')">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in getPage('repos', repos_page)">
+                                    <td>{{x.language}}</td>
+                                    <td>{{x.default_branch}}</td>
+                                    <td><a href="{{x.html_url}}" target="__blank">Ver</a></td>
+                                    <td>{{x.name}}</td>
+                                    <td>{{x.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="cell-5">
+                                <button ng-click="back('repos', 'repos_page')" class="button" style="width: 100%">
+                                    <<</button> </div> <div class="cell-2" style="text-align: center">
+                                        {{repos_page}}
+                            </div>
+                            <div class="cell-5">
+                                <button ng-click="next('repos', 'repos_page')" class="button" style="width: 100%">>></button>
+                            </div>
                         </div>
                     </div>
                 </div>
