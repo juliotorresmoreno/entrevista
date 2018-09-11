@@ -40,13 +40,17 @@ app.controller('formCtrl', ['$scope', function ($scope) {
     $scope.buscar_repos = function () {
         let b = $scope.search_repo || '';
         let data = $scope.repos || [];
-        if (!data.filter) return [];
-        return ($scope.repos || []).filter((x) => {
-            return
-                (typeof x.name === 'string' && x.name && x.name.includes(b)) ||
-                (typeof x.language === 'string' && x.language && x.language).includes(b) ||
-                (typeof x.default_branch === 'string' && x.default_branch && x.default_branch).includes(b) ||
-                (typeof x.html_url === 'string' && x.html_url && x.html_url).includes(b);
+        if (b === '') return data;
+        if (!Array.isArray(data)) return [];
+        return data.filter((x) => {
+            let name = x.name || '',
+                language = x.language || '',
+                default_branch = x.default_branch || '',
+                html_url = x.html_url || '';
+            return (name && name.includes(b)) ||
+                (language && language).includes(b) ||
+                (default_branch && default_branch).includes(b) ||
+                (html_url && html_url).includes(b);
         });
     }
 
@@ -64,7 +68,7 @@ app.controller('formCtrl', ['$scope', function ($scope) {
         }
         $scope[page]++;
     }
-
+    $scope.cookie = '';
     $scope.registrar = function () {
         if ($scope.validate_form()) {
             const data = {
@@ -75,24 +79,15 @@ app.controller('formCtrl', ['$scope', function ($scope) {
                 following: $scope.following
             };
             var d = new Date(); //Create an date object
-            d.setTime(d.getTime() + (exdays * 1000 * 60 * 60 * 24)); //Set the time to exdays from the current date in milliseconds. 1000 milliseonds = 1 second
+            d.setTime(d.getTime() + (1 * 1000 * 60 * 60 * 24)); //Set the time to exdays from the current date in milliseconds. 1000 milliseonds = 1 second
             var expires = "expires=" + d.toGMTString(); //Compose the expirartion date
             window.document.cookie = "info=" + JSON.stringify(data) + "; " + expires;//Set the cookie with value and the expiration date
-            alert('Exito');
+            $scope.cookie = "info=" + JSON.stringify(data) + "; " + expires;
         }
     }
 
     $scope.getCookie = function () {
-        var name = "info="; //Create the cookie name variable with cookie name concatenate with = sign
-        var cArr = window.document.cookie.split(';'); //Create cookie array by split the cookie by ';'
-
-        for (var i = 0; i < cArr.length; i++) {
-            var c = cArr[i].trim();
-            if (c.indexOf(name) == 0)
-                return c.substring(name.length, c.length);
-        }
-
-        return "";
+        return window.document.cookie;
     }
 
     $scope.validate_form = function (e) {
@@ -109,7 +104,7 @@ app.controller('formCtrl', ['$scope', function ($scope) {
         if (new Date($scope.user.fecha_nacimiento.trim()).toString() === 'Invalid Date') {
             $scope.errors.fecha_nacimiento = 'No es una fecha de nacimiento valida, el formato debe ser YYYY-MM-DD eje: 1995-10-30';
         }
-        return Object.keys($scope.errors) === 0;
+        return Object.keys($scope.errors).length === 0;
     }
 
     $scope.fetch = function () {
@@ -119,10 +114,10 @@ app.controller('formCtrl', ['$scope', function ($scope) {
             .then((response) => {
                 $scope.$apply(function () {
                     $scope.user = Object.assign({}, response.id ? response : {}, {
-                        documento: '',
-                        nombres: '',
-                        apellidos: '',
-                        fecha_nacimiento: ''
+                        documento: '1140831019',
+                        nombres: 'julio',
+                        apellidos: 'torres',
+                        fecha_nacimiento: '1990-01-01'
                     });
                     $scope.repos = [];
                 });
